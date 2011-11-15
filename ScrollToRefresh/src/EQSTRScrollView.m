@@ -90,9 +90,9 @@
 	refreshSpinner.indeterminate=YES;
 	
 	// set autoresizing masks
-	refreshSpinner.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin;
-	refreshArrow.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin;
-	refreshHeader.autoresizingMask = NSViewWidthSizable | NSViewMinXMargin | NSViewMinYMargin | NSViewMaxXMargin;
+	refreshSpinner.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center
+	refreshArrow.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center
+	refreshHeader.autoresizingMask = NSViewWidthSizable | NSViewMinXMargin | NSViewMinYMargin | NSViewMaxXMargin; // stretch
 	
 	[refreshHeader addSubview:refreshArrow];
 	[refreshHeader addSubview:refreshSpinner];

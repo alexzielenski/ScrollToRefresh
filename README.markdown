@@ -2,7 +2,7 @@ Introduction
 ================
 ScrollToRefresh is a subclass of NSScrollView that adds a "pull-to-refresh" feel to the "elastic" area of NSScrollview. 
 
-![ScrollToRefresh in action](screenshot.png "Scroll To Refresh")
+![ScrollToRefresh in action](https://github.com/alexzielenski/ScrollToRefresh/raw/master/screenshot.png "Scroll To Refresh")
 
 How it works
 ================

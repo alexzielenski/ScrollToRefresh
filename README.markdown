@@ -1,3 +1,5 @@
+The First Scroll To Refresh solution using only AppKit and Public APIs!
+
 Introduction
 ================
 ScrollToRefresh is a subclass of NSScrollView that adds a "pull-to-refresh" feel to the "elastic" area of NSScrollview. 

@@ -31,7 +31,13 @@
 // code modeled from https://github.com/leah/PullToRefresh/blob/master/Classes/PullRefreshTableViewController.m
 
 @implementation EQSTRScrollView
-@synthesize isRefreshing, refreshHeader;
+@synthesize isRefreshing, refreshHeader, target, selector;
+- (void)dealloc {
+	[refreshHeader release];
+	[refreshArrow release];
+	[refreshSpinner release];
+	[super dealloc];
+}
 - (void)viewDidMoveToWindow {
 	[self createHeaderView];
 }
@@ -140,6 +146,11 @@
 	
 	refreshArrow.hidden = YES;
 	[refreshSpinner startAnimation:self];
+	
+	if (self.target)
+		[self.target performSelectorOnMainThread:self.selector 
+									  withObject:self
+								   waitUntilDone:YES];
 }
 - (void)stopLoading {	
 	refreshArrow.hidden = NO;	

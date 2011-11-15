@@ -32,7 +32,13 @@
 	NSView *refreshHeader;
 	NSView *refreshArrow;
 	YRKSpinningProgressIndicator *refreshSpinner;
+	
+	id target;
+	SEL selector;
 }
+@property (assign) id target;
+@property (assign) SEL selector;
+
 @property (readonly) BOOL isRefreshing;
 @property (readonly) NSView *refreshHeader;
 - (void)startLoading;

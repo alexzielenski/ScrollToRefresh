@@ -60,7 +60,6 @@
 	clipView.drawsBackground=NO;
 	self.contentView=clipView;
 	
-	[clipView.documentView scrollToBeginningOfDocument:self];
 	
 	[self.contentView setPostsFrameChangedNotifications:YES];
 	[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -109,6 +108,13 @@
 	[self.contentView addSubview:refreshHeader];	
 	
 	[clipView release];
+	
+//	if ([self.contentView.documentView respondsToSelector:@selector(scrollToBeginningOfDocument:)])
+//		[self.contentView.documentView scrollToBeginningOfDocument:self];
+	
+	[self.contentView scrollToPoint:NSMakePoint(contentRect.origin.x, contentRect.origin.y+contentRect.size.height-self.contentView.documentVisibleRect.size.height)];
+	[self reflectScrolledClipView:self.contentView];
+
 }
 - (void)scrollWheel:(NSEvent *)event {
 	if (event.phase==NSEventPhaseEnded) {

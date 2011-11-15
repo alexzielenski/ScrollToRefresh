@@ -1,0 +1,294 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA121D601472FB2B00FED3BA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA121D5F1472FB2B00FED3BA /* Cocoa.framework */; };
+		FA121D6A1472FB2B00FED3BA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA121D681472FB2B00FED3BA /* InfoPlist.strings */; };
+		FA121D6C1472FB2B00FED3BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA121D6B1472FB2B00FED3BA /* main.m */; };
+		FA121D701472FB2B00FED3BA /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FA121D6E1472FB2B00FED3BA /* Credits.rtf */; };
+		FA121D731472FB2B00FED3BA /* EQSTRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA121D721472FB2B00FED3BA /* EQSTRAppDelegate.m */; };
+		FA121D761472FB2B00FED3BA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA121D741472FB2B00FED3BA /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FA121D5B1472FB2B00FED3BA /* ScrollToRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrollToRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA121D5F1472FB2B00FED3BA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		FA121D621472FB2B00FED3BA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		FA121D631472FB2B00FED3BA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FA121D641472FB2B00FED3BA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FA121D671472FB2B00FED3BA /* ScrollToRefresh-Info.plist */ = {isa = PBXFileReference; path = "ScrollToRefresh-Info.plist"; sourceTree = "<group>"; };
+		FA121D691472FB2B00FED3BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FA121D6B1472FB2B00FED3BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FA121D6D1472FB2B00FED3BA /* ScrollToRefresh-Prefix.pch */ = {isa = PBXFileReference; path = "ScrollToRefresh-Prefix.pch"; sourceTree = "<group>"; };
+		FA121D6F1472FB2B00FED3BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		FA121D711472FB2B00FED3BA /* EQSTRAppDelegate.h */ = {isa = PBXFileReference; path = EQSTRAppDelegate.h; sourceTree = "<group>"; };
+		FA121D721472FB2B00FED3BA /* EQSTRAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EQSTRAppDelegate.m; sourceTree = "<group>"; };
+		FA121D751472FB2B00FED3BA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA121D581472FB2B00FED3BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA121D601472FB2B00FED3BA /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA121D501472FB2A00FED3BA = {
+			isa = PBXGroup;
+			children = (
+				FA121D651472FB2B00FED3BA /* ScrollToRefresh */,
+				FA121D5E1472FB2B00FED3BA /* Frameworks */,
+				FA121D5C1472FB2B00FED3BA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FA121D5C1472FB2B00FED3BA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA121D5B1472FB2B00FED3BA /* ScrollToRefresh.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA121D5E1472FB2B00FED3BA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA121D5F1472FB2B00FED3BA /* Cocoa.framework */,
+				FA121D611472FB2B00FED3BA /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA121D611472FB2B00FED3BA /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA121D621472FB2B00FED3BA /* AppKit.framework */,
+				FA121D631472FB2B00FED3BA /* CoreData.framework */,
+				FA121D641472FB2B00FED3BA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		FA121D651472FB2B00FED3BA /* ScrollToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				FA121D711472FB2B00FED3BA /* EQSTRAppDelegate.h */,
+				FA121D721472FB2B00FED3BA /* EQSTRAppDelegate.m */,
+				FA121D741472FB2B00FED3BA /* MainMenu.xib */,
+				FA121D661472FB2B00FED3BA /* Supporting Files */,
+			);
+			path = ScrollToRefresh;
+			sourceTree = "<group>";
+		};
+		FA121D661472FB2B00FED3BA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FA121D671472FB2B00FED3BA /* ScrollToRefresh-Info.plist */,
+				FA121D681472FB2B00FED3BA /* InfoPlist.strings */,
+				FA121D6B1472FB2B00FED3BA /* main.m */,
+				FA121D6D1472FB2B00FED3BA /* ScrollToRefresh-Prefix.pch */,
+				FA121D6E1472FB2B00FED3BA /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA121D5A1472FB2B00FED3BA /* ScrollToRefresh */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA121D791472FB2B00FED3BA /* Build configuration list for PBXNativeTarget "ScrollToRefresh" */;
+			buildPhases = (
+				FA121D571472FB2B00FED3BA /* Sources */,
+				FA121D581472FB2B00FED3BA /* Frameworks */,
+				FA121D591472FB2B00FED3BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScrollToRefresh;
+			productName = ScrollToRefresh;
+			productReference = FA121D5B1472FB2B00FED3BA /* ScrollToRefresh.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA121D521472FB2A00FED3BA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Alex Zielenski";
+			};
+			buildConfigurationList = FA121D551472FB2A00FED3BA /* Build configuration list for PBXProject "ScrollToRefresh" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FA121D501472FB2A00FED3BA;
+			productRefGroup = FA121D5C1472FB2B00FED3BA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA121D5A1472FB2B00FED3BA /* ScrollToRefresh */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA121D591472FB2B00FED3BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA121D6A1472FB2B00FED3BA /* InfoPlist.strings in Resources */,
+				FA121D701472FB2B00FED3BA /* Credits.rtf in Resources */,
+				FA121D761472FB2B00FED3BA /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA121D571472FB2B00FED3BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA121D6C1472FB2B00FED3BA /* main.m in Sources */,
+				FA121D731472FB2B00FED3BA /* EQSTRAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FA121D681472FB2B00FED3BA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA121D691472FB2B00FED3BA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		FA121D6E1472FB2B00FED3BA /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA121D6F1472FB2B00FED3BA /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		FA121D741472FB2B00FED3BA /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA121D751472FB2B00FED3BA /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FA121D771472FB2B00FED3BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FA121D781472FB2B00FED3BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		FA121D7A1472FB2B00FED3BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ScrollToRefresh/ScrollToRefresh-Prefix.pch";
+				INFOPLIST_FILE = "ScrollToRefresh/ScrollToRefresh-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		FA121D7B1472FB2B00FED3BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ScrollToRefresh/ScrollToRefresh-Prefix.pch";
+				INFOPLIST_FILE = "ScrollToRefresh/ScrollToRefresh-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA121D551472FB2A00FED3BA /* Build configuration list for PBXProject "ScrollToRefresh" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA121D771472FB2B00FED3BA /* Debug */,
+				FA121D781472FB2B00FED3BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA121D791472FB2B00FED3BA /* Build configuration list for PBXNativeTarget "ScrollToRefresh" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA121D7A1472FB2B00FED3BA /* Debug */,
+				FA121D7B1472FB2B00FED3BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA121D521472FB2A00FED3BA /* Project object */;
+}

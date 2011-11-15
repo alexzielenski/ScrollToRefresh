@@ -55,9 +55,12 @@
 	NSView *documentView = self.contentView.documentView;
 	
 	EQSTRClipView *clipView = [[EQSTRClipView alloc] initWithFrame:self.contentView.frame];
-	self.contentView=clipView;
 	clipView.documentView=documentView;
 	clipView.copiesOnScroll=NO;
+	clipView.drawsBackground=NO;
+	self.contentView=clipView;
+	
+	[clipView.documentView scrollToBeginningOfDocument:self];
 	
 	[self.contentView setPostsFrameChangedNotifications:YES];
 	[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -166,7 +169,7 @@
 	CGEventRef cgEvent = CGEventCreateScrollWheelEvent(NULL,
 													   kCGScrollEventUnitLine,
 													   2,
-													   1,
+													   -1,
 													   0);
 	NSEvent *scrollEvent = [NSEvent eventWithCGEvent:cgEvent];
 	[self scrollWheel:scrollEvent];

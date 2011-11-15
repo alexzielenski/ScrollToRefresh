@@ -2,6 +2,8 @@ Introduction
 ================
 ScrollToRefresh is a subclass of NSScrollView that adds a "pull-to-refresh" feel to the "elastic" area of NSScrollview. 
 
+![ScrollToRefresh in action](http://cl.ly/Bq18/Screen%20Shot%202011-11-15%20at%205.04.57%20PM.png "Scroll To Refresh")
+
 How it works
 ================
 The secret is actually knowing how scroll views work. When you scroll, the clip view offsets the origin of its `-bounds` so any subview within the clipview will scroll. It also employs a couple of other methods to check the boundaries of the document view which I override to include the refresh view to get a more natural feel.

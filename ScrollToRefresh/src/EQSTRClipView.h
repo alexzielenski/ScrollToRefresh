@@ -29,6 +29,4 @@
 }
 - (BOOL)isRefreshing;
 - (NSView*)headerView;
-
-- (NSPoint)superConstainScrolledPoint:(NSPoint)pt;
 @end

@@ -53,4 +53,7 @@
 - (NSView*)headerView {
 	return [(EQSTRScrollView*)self.superview refreshHeader];
 }
+- (BOOL)isFlipped {
+	return NO;
+}
 @end

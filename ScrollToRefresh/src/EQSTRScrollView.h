@@ -23,7 +23,6 @@
 // THE SOFTWARE.
 
 #import <AppKit/AppKit.h>
-#import "YRKSpinningProgressIndicator.h"
 
 @interface EQSTRScrollView : NSScrollView {
 	BOOL isRefreshing;
@@ -31,7 +30,7 @@
 	
 	NSView *refreshHeader;
 	NSView *refreshArrow;
-	YRKSpinningProgressIndicator *refreshSpinner;
+	NSProgressIndicator *refreshSpinner;
 	
 	id target;
 	SEL selector;
@@ -42,7 +41,7 @@
 @property (readonly) BOOL isRefreshing;
 
 @property (readonly) NSView *refreshHeader;
-@property (readonly) YRKSpinningProgressIndicator *refreshSpinner;
+@property (readonly) NSProgressIndicator *refreshSpinner;
 @property (readonly) NSView *refreshArrow;
 - (void)startLoading;
 - (void)stopLoading;

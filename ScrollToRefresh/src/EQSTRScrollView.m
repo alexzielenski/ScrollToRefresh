@@ -80,17 +80,22 @@
 	refreshArrow.layer.contents=(id)[arrowImage CGImageForProposedRect:NULL
 															   context:nil
 																 hints:nil];
-	
-	// spinner
-	refreshSpinner = [[YRKSpinningProgressIndicator alloc] initWithFrame:NSMakeRect(floor(NSMidX(refreshHeader.bounds)-30),
-																					floor(NSMidY(refreshHeader.bounds)-20), 
-																					60.0f, 
-																					40.0f)];
+
+	refreshSpinner = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(floor(NSMidX(refreshHeader.bounds)-30),
+																		   floor(NSMidY(refreshHeader.bounds)-20), 
+																		   60.0f, 
+																		   40.0f)];
+	refreshSpinner.style=NSProgressIndicatorSpinningStyle;
 	refreshSpinner.displayedWhenStopped=NO;
 	refreshSpinner.usesThreadedAnimation=YES;
-	refreshSpinner.drawsBackground=NO;
-	refreshSpinner.backgroundColor=[NSColor clearColor];
 	refreshSpinner.indeterminate=YES;
+	refreshSpinner.bezeled=NO;
+	[refreshSpinner sizeToFit];
+	
+	[refreshSpinner setFrame:NSMakeRect(floor(NSMidX(refreshHeader.bounds)-refreshSpinner.frame.size.width/2),
+										floor(NSMidY(refreshHeader.bounds)-refreshSpinner.frame.size.height/2), 
+										refreshSpinner.frame.size.width, 
+										refreshSpinner.frame.size.height)];
 	
 	// set autoresizing masks
 	refreshSpinner.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center

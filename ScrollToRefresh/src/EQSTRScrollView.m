@@ -31,19 +31,13 @@
 // code modeled from https://github.com/leah/PullToRefresh/blob/master/Classes/PullRefreshTableViewController.m
 
 @implementation EQSTRScrollView
-@synthesize isRefreshing, refreshHeader, target, selector;
-- (void)dealloc {
-	[refreshHeader release];
-	[refreshArrow release];
-	[refreshSpinner release];
-	[super dealloc];
-}
+@synthesize isRefreshing, refreshHeader, target, selector, refreshSpinner, refreshArrow;
 - (void)viewDidMoveToWindow {
 	[self createHeaderView];
 }
 - (void)createHeaderView {
 	// delete old stuff if any
-	if (refreshHeader) {
+	if (refreshHeader) {		
 		[refreshHeader removeFromSuperview];
 		[refreshHeader release];
 		refreshHeader = nil;
@@ -60,6 +54,7 @@
 	clipView.drawsBackground=NO;
 	self.contentView=clipView;
 	
+	[clipView release];
 	
 	[self.contentView setPostsFrameChangedNotifications:YES];
 	[[NSNotificationCenter defaultCenter] addObserver:self 
@@ -70,7 +65,7 @@
 	// add header view to clipview
 	NSRect contentRect = [self.contentView.documentView frame];
 	refreshHeader = [[NSView alloc] initWithFrame:NSMakeRect(0, 
-															 contentRect.origin.y+contentRect.size.height, 
+															 0-REFRESH_HEADER_HEIGHT, //contentRect.origin.y+contentRect.size.height, 
 															 contentRect.size.width, 
 															 REFRESH_HEADER_HEIGHT)];
 	
@@ -96,25 +91,22 @@
 	refreshSpinner.drawsBackground=NO;
 	refreshSpinner.backgroundColor=[NSColor clearColor];
 	refreshSpinner.indeterminate=YES;
-	
+	refreshSpinner.color=[NSColor colorWithDeviceRed:0.4171 green:0.4759 blue:0.5247 alpha:1.0000];
 	// set autoresizing masks
 	refreshSpinner.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center
 	refreshArrow.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center
-	refreshHeader.autoresizingMask = NSViewWidthSizable | NSViewMinXMargin | NSViewMinYMargin | NSViewMaxXMargin; // stretch
+	refreshHeader.autoresizingMask = NSViewWidthSizable | NSViewMinXMargin | NSViewMaxXMargin; // stretch
 	
 	[refreshHeader addSubview:refreshArrow];
 	[refreshHeader addSubview:refreshSpinner];
 	
 	[self.contentView addSubview:refreshHeader];	
 	
-	[clipView release];
+	[refreshArrow release];
+	[refreshSpinner release];
 	
-//	if ([self.contentView.documentView respondsToSelector:@selector(scrollToBeginningOfDocument:)])
-//		[self.contentView.documentView scrollToBeginningOfDocument:self];
-	
-	[self.contentView scrollToPoint:NSMakePoint(contentRect.origin.x, contentRect.origin.y+contentRect.size.height-self.contentView.documentVisibleRect.size.height)];
+	[self.contentView scrollToPoint:NSMakePoint(contentRect.origin.x, 0)];
 	[self reflectScrolledClipView:self.contentView];
-
 }
 - (void)scrollWheel:(NSEvent *)event {
 	if (event.phase==NSEventPhaseEnded) {
@@ -125,9 +117,9 @@
 	[super scrollWheel:event];
 }
 - (void)viewBoundsChanged:(NSNotification*)note {
-	BOOL start = [self overRefreshView];
 	if (isRefreshing)
 		return;
+	BOOL start = [self overRefreshView];
 	if (start) {
 		// point arrow up
 		[refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
@@ -143,10 +135,10 @@
 	NSClipView *clipView = self.contentView;
 	NSRect bounds = clipView.bounds;
 	
-	CGFloat scrollValue = bounds.origin.y+bounds.size.height;
-	CGFloat minimumScroll = refreshHeader.frame.origin.y+refreshHeader.frame.size.height;
+	CGFloat scrollValue = bounds.origin.y;
+	CGFloat minimumScroll = self.minimumScroll;
 	
-	return (scrollValue>=minimumScroll);
+	return (scrollValue<=minimumScroll);
 }
 - (void)startLoading {
 	[self willChangeValueForKey:@"isRefreshing"];
@@ -156,7 +148,7 @@
 	refreshArrow.hidden = YES;
 	[refreshSpinner startAnimation:self];
 	
-	if (self.target)
+	if (self.target&&[self.target respondsToSelector:self.selector])
 		[self.target performSelectorOnMainThread:self.selector 
 									  withObject:self
 								   waitUntilDone:YES];
@@ -175,10 +167,13 @@
 	CGEventRef cgEvent = CGEventCreateScrollWheelEvent(NULL,
 													   kCGScrollEventUnitLine,
 													   2,
-													   -1,
+													   1,
 													   0);
 	NSEvent *scrollEvent = [NSEvent eventWithCGEvent:cgEvent];
 	[self scrollWheel:scrollEvent];
 	CFRelease(cgEvent);
+}
+- (CGFloat)minimumScroll {
+	return 0-refreshHeader.frame.size.height;
 }
 @end

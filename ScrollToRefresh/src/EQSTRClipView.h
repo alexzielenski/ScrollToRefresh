@@ -29,4 +29,5 @@
 }
 - (BOOL)isRefreshing;
 - (NSView*)headerView;
+- (CGFloat)minimumScroll;
 @end

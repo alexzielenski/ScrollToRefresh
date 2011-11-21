@@ -27,23 +27,25 @@
 #import "EQSTRScrollView.h"
 
 @implementation EQSTRClipView
-- (NSPoint)constrainScrollPoint:(NSPoint)proposedNewOrigin { // this method determines the "elastic" of the scroll view or how high it can scroll without resistence. 
+- (NSPoint)constrainScrollPoint:(NSPoint)proposedNewOrigin { // this method determines the "elastic" of the scroll view or how high it can scroll without resistence. 	
 	NSPoint constrained = [super constrainScrollPoint:proposedNewOrigin];
-	CGFloat scrollValue = proposedNewOrigin.y+self.documentVisibleRect.size.height; // this is the y value where the top of the document view is
-	
+	CGFloat scrollValue = proposedNewOrigin.y; // this is the y value where the top of the document view is
+	BOOL over = scrollValue<=self.minimumScroll;
 	if (self.isRefreshing) { // if we are refreshing
-		if (scrollValue>=self.headerView.frame.origin.y) { // and if we are scrolled past the refresh view
-			if (scrollValue>=self.headerView.frame.origin.y+self.headerView.frame.size.height) // and if we are scrolled above the refresh view
-				proposedNewOrigin.y = constrained.y+self.headerView.frame.size.height; // constrain us to the refresh view
-			return NSMakePoint(constrained.x, proposedNewOrigin.y);
-		}
+		if (over) // and if we are scrolled above the refresh view
+			constrained.y = 0-self.headerView.frame.size.height; // constrain us to the refresh view
+		return NSMakePoint(constrained.x, constrained.y);
 	}
 	return constrained;
+}
+- (BOOL)isFlipped {
+	return YES; 
 }
 - (NSRect)documentRect { //this is to make scrolling feel more normal so that the spinner is within the scrolled area
 	NSRect sup = [super documentRect];
 	if (self.isRefreshing) {
 		sup.size.height+=self.headerView.frame.size.height;
+		sup.origin.y-=self.headerView.frame.size.height;
 	}
 	return sup;
 }
@@ -53,7 +55,7 @@
 - (NSView*)headerView {
 	return [(EQSTRScrollView*)self.superview refreshHeader];
 }
-- (BOOL)isFlipped {
-	return NO;
+- (CGFloat)minimumScroll {
+	return [(EQSTRScrollView*)self.superview minimumScroll];
 }
 @end

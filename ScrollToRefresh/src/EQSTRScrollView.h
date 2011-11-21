@@ -40,11 +40,16 @@
 @property (assign) SEL selector;
 
 @property (readonly) BOOL isRefreshing;
+
 @property (readonly) NSView *refreshHeader;
+@property (readonly) YRKSpinningProgressIndicator *refreshSpinner;
+@property (readonly) NSView *refreshArrow;
 - (void)startLoading;
 - (void)stopLoading;
 
 - (BOOL)overRefreshView;
 - (void)createHeaderView;
 - (void)viewBoundsChanged:(NSNotification*)note;
+
+- (CGFloat)minimumScroll;
 @end

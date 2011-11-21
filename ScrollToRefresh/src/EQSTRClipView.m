@@ -31,10 +31,11 @@
 	NSPoint constrained = [super constrainScrollPoint:proposedNewOrigin];
 	CGFloat scrollValue = proposedNewOrigin.y; // this is the y value where the top of the document view is
 	BOOL over = scrollValue<=self.minimumScroll;
-	if (self.isRefreshing) { // if we are refreshing
+	
+	if (self.isRefreshing&&scrollValue<=0) { // if we are refreshing
 		if (over) // and if we are scrolled above the refresh view
-			constrained.y = 0-self.headerView.frame.size.height; // constrain us to the refresh view
-		return NSMakePoint(constrained.x, constrained.y);
+			proposedNewOrigin.y = 0-self.headerView.frame.size.height; // constrain us to the refresh view
+		return NSMakePoint(constrained.x, proposedNewOrigin.y);
 	}
 	return constrained;
 }

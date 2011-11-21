@@ -91,11 +91,11 @@
 	refreshSpinner.drawsBackground=NO;
 	refreshSpinner.backgroundColor=[NSColor clearColor];
 	refreshSpinner.indeterminate=YES;
-	refreshSpinner.color=[NSColor colorWithDeviceRed:0.4171 green:0.4759 blue:0.5247 alpha:1.0000];
+	
 	// set autoresizing masks
 	refreshSpinner.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center
 	refreshArrow.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center
-	refreshHeader.autoresizingMask = NSViewWidthSizable | NSViewMinXMargin | NSViewMaxXMargin; // stretch
+	refreshHeader.autoresizingMask = NSViewWidthSizable | NSViewMinXMargin | NSViewMaxXMargin; // stretch/center
 	
 	[refreshHeader addSubview:refreshArrow];
 	[refreshHeader addSubview:refreshSpinner];

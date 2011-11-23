@@ -35,6 +35,24 @@
 - (void)viewDidMoveToWindow {
 	[self createHeaderView];
 }
+- (NSClipView*)contentView {
+	NSClipView *superClipView = [super contentView];
+	if (![superClipView isKindOfClass:[EQSTRClipView class]]) {
+		// create new clipview
+		NSView *documentView = superClipView.documentView;
+		
+		EQSTRClipView *clipView = [[EQSTRClipView alloc] initWithFrame:superClipView.frame];
+		clipView.documentView=documentView;
+		clipView.copiesOnScroll=NO;
+		clipView.drawsBackground=NO;
+		[self setContentView:clipView];
+		
+		[clipView release];
+		
+		superClipView = [super contentView];
+	}
+	return superClipView;
+}
 - (void)createHeaderView {
 	// delete old stuff if any
 	if (refreshHeader) {		
@@ -45,18 +63,11 @@
 	
 	[self setVerticalScrollElasticity:NSScrollElasticityAllowed];
 	
-	// create new clipview
-	NSView *documentView = self.contentView.documentView;
-	
-	EQSTRClipView *clipView = [[EQSTRClipView alloc] initWithFrame:self.contentView.frame];
-	clipView.documentView=documentView;
-	clipView.copiesOnScroll=NO;
-	clipView.drawsBackground=NO;
-	self.contentView=clipView;
-	
-	[clipView release];
+	(void)self.contentView; // create new content view
 	
 	[self.contentView setPostsFrameChangedNotifications:YES];
+	[self.contentView setPostsBoundsChangedNotifications:YES];
+
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(viewBoundsChanged:)
 												 name:NSViewBoundsDidChangeNotification 

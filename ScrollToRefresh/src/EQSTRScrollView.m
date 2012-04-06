@@ -55,6 +55,12 @@
 @synthesize refreshArrow   = _refreshArrow;
 @synthesize refreshBlock   = _refreshBlock;
 
+#pragma mark - Dealloc
+- (void)dealloc {
+	self.refreshBlock = nil;
+	[super dealloc];
+}
+
 #pragma mark - Create Header View
 
 - (void)viewDidMoveToWindow {

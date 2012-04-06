@@ -156,7 +156,7 @@
 		FA121D521472FB2A00FED3BA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Alex Zielenski";
 			};
 			buildConfigurationList = FA121D551472FB2A00FED3BA /* Build configuration list for PBXProject "ScrollToRefresh" */;

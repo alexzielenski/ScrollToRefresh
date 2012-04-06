@@ -26,6 +26,16 @@
 #import "EQSTRClipView.h"
 #import "EQSTRScrollView.h"
 
+@interface EQSTRScrollView (Private)
+- (CGFloat)minimumScroll;
+@end
+
+@interface EQSTRClipView ()
+- (BOOL)isRefreshing;
+- (NSView *)headerView;
+- (CGFloat)minimumScroll;
+@end
+
 @implementation EQSTRClipView
 - (NSPoint)constrainScrollPoint:(NSPoint)proposedNewOrigin { // this method determines the "elastic" of the scroll view or how high it can scroll without resistence. 	
 	NSPoint constrained = [super constrainScrollPoint:proposedNewOrigin];
@@ -58,7 +68,7 @@
 	return [(EQSTRScrollView *)self.superview isRefreshing];
 }
 
-- (NSView*)headerView {
+- (NSView *)headerView {
 	return [(EQSTRScrollView *)self.superview refreshHeader];
 }
 

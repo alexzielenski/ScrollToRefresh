@@ -25,9 +25,5 @@
 
 #import <AppKit/AppKit.h>
 
-@interface EQSTRClipView : NSClipView {
-}
-- (BOOL)isRefreshing;
-- (NSView*)headerView;
-- (CGFloat)minimumScroll;
+@interface EQSTRClipView : NSClipView
 @end

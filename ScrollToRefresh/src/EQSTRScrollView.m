@@ -32,7 +32,7 @@
 
 @interface EQSTRScrollView ()
 @property (nonatomic, assign) BOOL _overRefreshView;
-
+@property (nonatomic, retain) CALayer *_arrowLayer;
 - (BOOL)overRefreshView;
 - (void)createHeaderView;
 - (void)viewBoundsChanged:(NSNotification*)note;
@@ -46,6 +46,7 @@
 #pragma mark - Private Properties
 
 @synthesize _overRefreshView;
+@synthesize _arrowLayer;
 
 #pragma mark - Public Properties
 
@@ -58,6 +59,7 @@
 #pragma mark - Dealloc
 - (void)dealloc {
 	self.refreshBlock = nil;
+	self._arrowLayer  = nil;
 	[super dealloc];
 }
 
@@ -102,7 +104,7 @@
 	
 	[self.contentView setPostsFrameChangedNotifications:YES];
 	[self.contentView setPostsBoundsChangedNotifications:YES];
-
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(viewBoundsChanged:)
 												 name:NSViewBoundsDidChangeNotification 
@@ -117,16 +119,22 @@
 	
 	// Create Arrow
 	NSImage *arrowImage = [NSImage imageNamed:@"arrow"];
-	_refreshArrow = [[NSView alloc] initWithFrame:NSMakeRect(floor(NSMidX(self.refreshHeader.bounds) - arrowImage.size.width / 2), 
-															 floor(NSMidY(self.refreshHeader.bounds) - arrowImage.size.height / 2), 
-															 arrowImage.size.width,
-															 arrowImage.size.height)];
-	self.refreshArrow.wantsLayer     = YES;
-	self.refreshArrow.layer          = [CALayer layer];
-	self.refreshArrow.layer.contents = (id)[arrowImage CGImageForProposedRect:NULL
-																	  context:nil
-																		hints:nil];
-
+	_refreshArrow       = [[NSView alloc] initWithFrame:NSMakeRect(floor(NSMidX(self.refreshHeader.bounds) - arrowImage.size.width / 2), 
+																   floor(NSMidY(self.refreshHeader.bounds) - arrowImage.size.height / 2), 
+																   arrowImage.size.width,
+																   arrowImage.size.height)];
+	self.refreshArrow.wantsLayer = YES;
+	
+	self._arrowLayer = [CALayer layer];
+	self._arrowLayer.contents = (id)[arrowImage CGImageForProposedRect:NULL
+															   context:nil
+																 hints:nil];
+	
+	self._arrowLayer.frame    = NSRectToCGRect(_refreshArrow.bounds);
+	_refreshArrow.layer.frame = NSRectToCGRect(_refreshArrow.bounds);
+	
+	[self.refreshArrow.layer addSublayer:self._arrowLayer];
+	
 	// Create spinner
 	_refreshSpinner = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(floor(NSMidX(self.refreshHeader.bounds) - 30),
 																			floor(NSMidY(self.refreshHeader.bounds) - 20), 
@@ -141,9 +149,9 @@
 	
 	// Center the spinner in the header
 	[self.refreshSpinner setFrame:NSMakeRect(floor(NSMidX(self.refreshHeader.bounds) - self.refreshSpinner.frame.size.width / 2),
-										floor(NSMidY(self.refreshHeader.bounds) - self.refreshSpinner.frame.size.height / 2), 
-										self.refreshSpinner.frame.size.width, 
-										self.refreshSpinner.frame.size.height)];
+											 floor(NSMidY(self.refreshHeader.bounds) - self.refreshSpinner.frame.size.height / 2), 
+											 self.refreshSpinner.frame.size.width, 
+											 self.refreshSpinner.frame.size.height)];
 	
 	// set autoresizing masks
 	self.refreshSpinner.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center
@@ -184,13 +192,13 @@
 	if (start) {
 		
 		// point arrow up
-		[self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
+		self._arrowLayer.transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
 		self._overRefreshView = YES;
 		
 	} else {
 		
 		// point arrow down
-		[self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
+		self._arrowLayer.transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
 		self._overRefreshView = NO;
 		
 	}

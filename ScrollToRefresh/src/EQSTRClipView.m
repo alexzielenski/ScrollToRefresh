@@ -40,9 +40,11 @@
 	}
 	return constrained;
 }
+
 - (BOOL)isFlipped {
 	return YES; 
 }
+
 - (NSRect)documentRect { //this is to make scrolling feel more normal so that the spinner is within the scrolled area
 	NSRect sup = [super documentRect];
 	if (self.isRefreshing) {
@@ -51,13 +53,17 @@
 	}
 	return sup;
 }
+
 - (BOOL)isRefreshing {
 	return [(EQSTRScrollView *)self.superview isRefreshing];
 }
+
 - (NSView*)headerView {
 	return [(EQSTRScrollView *)self.superview refreshHeader];
 }
+
 - (CGFloat)minimumScroll {
 	return [(EQSTRScrollView *)self.superview minimumScroll];
 }
+
 @end

@@ -156,8 +156,8 @@
 	
 	[self.contentView addSubview:self.refreshHeader];	
 	
-	[self.refreshArrow release];
-	[self.refreshSpinner release];
+	[_refreshArrow release];
+	[_refreshSpinner release];
 	
 	// Scroll to top
 	[self.contentView scrollToPoint:NSMakePoint(contentRect.origin.x, 0)];

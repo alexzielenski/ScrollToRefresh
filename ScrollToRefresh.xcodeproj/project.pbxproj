@@ -17,7 +17,6 @@
 		FA121D851472FB9300FED3BA /* EQSTRClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA121D841472FB9300FED3BA /* EQSTRClipView.m */; };
 		FA121D87147303B400FED3BA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA121D86147303B400FED3BA /* QuartzCore.framework */; };
 		FA121D89147303EC00FED3BA /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = FA121D88147303EC00FED3BA /* arrow.png */; };
-		FA121D951473074D00FED3BA /* YRKSpinningProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = FA121D941473074D00FED3BA /* YRKSpinningProgressIndicator.m */; };
 		FA121D97147318BD00FED3BA /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = FA121D96147318BD00FED3BA /* README.markdown */; };
 /* End PBXBuildFile section */
 
@@ -41,8 +40,6 @@
 		FA121D841472FB9300FED3BA /* EQSTRClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EQSTRClipView.m; path = src/EQSTRClipView.m; sourceTree = "<group>"; };
 		FA121D86147303B400FED3BA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FA121D88147303EC00FED3BA /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
-		FA121D931473074D00FED3BA /* YRKSpinningProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRKSpinningProgressIndicator.h; sourceTree = "<group>"; };
-		FA121D941473074D00FED3BA /* YRKSpinningProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRKSpinningProgressIndicator.m; sourceTree = "<group>"; };
 		FA121D96147318BD00FED3BA /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -103,7 +100,6 @@
 				FA121D721472FB2B00FED3BA /* EQSTRAppDelegate.m */,
 				FA121D7F1472FB5C00FED3BA /* ScrollToRefresh */,
 				FA121D741472FB2B00FED3BA /* MainMenu.xib */,
-				FA121D8A147306C100FED3BA /* 3rd Party */,
 				FA121D661472FB2B00FED3BA /* Supporting Files */,
 			);
 			path = ScrollToRefresh;
@@ -132,24 +128,6 @@
 				FA121D841472FB9300FED3BA /* EQSTRClipView.m */,
 			);
 			name = ScrollToRefresh;
-			sourceTree = "<group>";
-		};
-		FA121D8A147306C100FED3BA /* 3rd Party */ = {
-			isa = PBXGroup;
-			children = (
-				FA121D921473074D00FED3BA /* YRKSpinningProgressIndicator */,
-			);
-			name = "3rd Party";
-			path = "src/3rd Party";
-			sourceTree = "<group>";
-		};
-		FA121D921473074D00FED3BA /* YRKSpinningProgressIndicator */ = {
-			isa = PBXGroup;
-			children = (
-				FA121D931473074D00FED3BA /* YRKSpinningProgressIndicator.h */,
-				FA121D941473074D00FED3BA /* YRKSpinningProgressIndicator.m */,
-			);
-			path = YRKSpinningProgressIndicator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,7 +200,6 @@
 				FA121D731472FB2B00FED3BA /* EQSTRAppDelegate.m in Sources */,
 				FA121D7E1472FB5800FED3BA /* EQSTRScrollView.m in Sources */,
 				FA121D851472FB9300FED3BA /* EQSTRClipView.m in Sources */,
-				FA121D951473074D00FED3BA /* YRKSpinningProgressIndicator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +319,7 @@
 				FA121D7B1472FB2B00FED3BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

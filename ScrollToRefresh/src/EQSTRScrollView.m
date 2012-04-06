@@ -30,35 +30,64 @@
 
 // code modeled from https://github.com/leah/PullToRefresh/blob/master/Classes/PullRefreshTableViewController.m
 
+@interface EQSTRScrollView ()
+@property (nonatomic, assign) BOOL _overRefreshView;
+
+- (BOOL)overRefreshView;
+- (void)createHeaderView;
+- (void)viewBoundsChanged:(NSNotification*)note;
+
+- (CGFloat)minimumScroll;
+
+@end
+
 @implementation EQSTRScrollView
-@synthesize isRefreshing, refreshHeader, target, selector, refreshSpinner, refreshArrow;
+
+#pragma mark - Private Properties
+
+@synthesize _overRefreshView;
+
+#pragma mark - Public Properties
+
+@synthesize isRefreshing   = _isRefreshing;
+@synthesize refreshHeader  = _refreshHeader; 
+@synthesize refreshSpinner = _refreshSpinner;
+@synthesize refreshArrow   = _refreshArrow;
+@synthesize refreshBlock   = _refreshBlock;
+
+#pragma mark - Create Header View
+
 - (void)viewDidMoveToWindow {
 	[self createHeaderView];
 }
-- (NSClipView*)contentView {
+
+- (NSClipView *)contentView {
 	NSClipView *superClipView = [super contentView];
 	if (![superClipView isKindOfClass:[EQSTRClipView class]]) {
+		
 		// create new clipview
-		NSView *documentView = superClipView.documentView;
+		NSView *documentView     = superClipView.documentView;
 		
-		EQSTRClipView *clipView = [[EQSTRClipView alloc] initWithFrame:superClipView.frame];
-		clipView.documentView=documentView;
-		clipView.copiesOnScroll=NO;
-		clipView.drawsBackground=NO;
+		EQSTRClipView *clipView  = [[EQSTRClipView alloc] initWithFrame:superClipView.frame];
+		clipView.documentView    = documentView;
+		clipView.copiesOnScroll  = NO;
+		clipView.drawsBackground = NO;
+		
 		[self setContentView:clipView];
-		
 		[clipView release];
 		
-		superClipView = [super contentView];
+		superClipView            = [super contentView];
+		
 	}
 	return superClipView;
 }
+
 - (void)createHeaderView {
 	// delete old stuff if any
-	if (refreshHeader) {		
-		[refreshHeader removeFromSuperview];
-		[refreshHeader release];
-		refreshHeader = nil;
+	if (self.refreshHeader) {		
+		[_refreshHeader removeFromSuperview];
+		[_refreshHeader release];
+		_refreshHeader = nil;
 	}
 	
 	[self setVerticalScrollElasticity:NSScrollElasticityAllowed];
@@ -75,121 +104,143 @@
 	
 	// add header view to clipview
 	NSRect contentRect = [self.contentView.documentView frame];
-	refreshHeader = [[NSView alloc] initWithFrame:NSMakeRect(0, 
-															 0-REFRESH_HEADER_HEIGHT, //contentRect.origin.y+contentRect.size.height, 
-															 contentRect.size.width, 
-															 REFRESH_HEADER_HEIGHT)];
+	_refreshHeader = [[NSView alloc] initWithFrame:NSMakeRect(0, 
+															  0 - REFRESH_HEADER_HEIGHT,
+															  contentRect.size.width, 
+															  REFRESH_HEADER_HEIGHT)];
 	
-	// arrow
+	// Create Arrow
 	NSImage *arrowImage = [NSImage imageNamed:@"arrow"];
-	refreshArrow = [[NSView alloc] initWithFrame:NSMakeRect(floor(NSMidX(refreshHeader.bounds)-arrowImage.size.width/2), 
-															floor(NSMidY(refreshHeader.bounds)-arrowImage.size.height/2), 
-															arrowImage.size.width,
-															arrowImage.size.height)];
-	refreshArrow.wantsLayer=YES;
-	refreshArrow.layer=[CALayer layer];
-	refreshArrow.layer.contents=(id)[arrowImage CGImageForProposedRect:NULL
-															   context:nil
-																 hints:nil];
+	_refreshArrow = [[NSView alloc] initWithFrame:NSMakeRect(floor(NSMidX(self.refreshHeader.bounds) - arrowImage.size.width / 2), 
+															 floor(NSMidY(self.refreshHeader.bounds) - arrowImage.size.height / 2), 
+															 arrowImage.size.width,
+															 arrowImage.size.height)];
+	self.refreshArrow.wantsLayer     = YES;
+	self.refreshArrow.layer          = [CALayer layer];
+	self.refreshArrow.layer.contents = (id)[arrowImage CGImageForProposedRect:NULL
+																	  context:nil
+																		hints:nil];
 
-	refreshSpinner = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(floor(NSMidX(refreshHeader.bounds)-30),
-																		   floor(NSMidY(refreshHeader.bounds)-20), 
-																		   60.0f, 
-																		   40.0f)];
-	refreshSpinner.style=NSProgressIndicatorSpinningStyle;
-	refreshSpinner.displayedWhenStopped=NO;
-	refreshSpinner.usesThreadedAnimation=YES;
-	refreshSpinner.indeterminate=YES;
-	refreshSpinner.bezeled=NO;
-	[refreshSpinner sizeToFit];
+	// Create spinner
+	_refreshSpinner = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(floor(NSMidX(self.refreshHeader.bounds) - 30),
+																			floor(NSMidY(self.refreshHeader.bounds) - 20), 
+																			60.0f, 
+																			40.0f)];
+	self.refreshSpinner.style                 = NSProgressIndicatorSpinningStyle;
+	self.refreshSpinner.displayedWhenStopped  = NO;
+	self.refreshSpinner.usesThreadedAnimation = YES;
+	self.refreshSpinner.indeterminate         = YES;
+	self.refreshSpinner.bezeled               = NO;
+	[self.refreshSpinner sizeToFit];
 	
-	[refreshSpinner setFrame:NSMakeRect(floor(NSMidX(refreshHeader.bounds)-refreshSpinner.frame.size.width/2),
-										floor(NSMidY(refreshHeader.bounds)-refreshSpinner.frame.size.height/2), 
-										refreshSpinner.frame.size.width, 
-										refreshSpinner.frame.size.height)];
+	// Center the spinner in the header
+	[self.refreshSpinner setFrame:NSMakeRect(floor(NSMidX(self.refreshHeader.bounds) - self.refreshSpinner.frame.size.width / 2),
+										floor(NSMidY(self.refreshHeader.bounds) - self.refreshSpinner.frame.size.height / 2), 
+										self.refreshSpinner.frame.size.width, 
+										self.refreshSpinner.frame.size.height)];
 	
 	// set autoresizing masks
-	refreshSpinner.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center
-	refreshArrow.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center
-	refreshHeader.autoresizingMask = NSViewWidthSizable | NSViewMinXMargin | NSViewMaxXMargin; // stretch/center
+	self.refreshSpinner.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center
+	self.refreshArrow.autoresizingMask   = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin; // center
+	self.refreshHeader.autoresizingMask  = NSViewWidthSizable | NSViewMinXMargin | NSViewMaxXMargin; // stretch/center
 	
-	[refreshHeader addSubview:refreshArrow];
-	[refreshHeader addSubview:refreshSpinner];
+	// Put everything in place
+	[self.refreshHeader addSubview:self.refreshArrow];
+	[self.refreshHeader addSubview:self.refreshSpinner];
 	
-	[self.contentView addSubview:refreshHeader];	
+	[self.contentView addSubview:self.refreshHeader];	
 	
-	[refreshArrow release];
-	[refreshSpinner release];
+	[self.refreshArrow release];
+	[self.refreshSpinner release];
 	
+	// Scroll to top
 	[self.contentView scrollToPoint:NSMakePoint(contentRect.origin.x, 0)];
 	[self reflectScrolledClipView:self.contentView];
 }
+
+#pragma mark - Detecting Scroll
+
 - (void)scrollWheel:(NSEvent *)event {
-	if (event.phase==NSEventPhaseEnded) {
-		if (overHeaderView&&!isRefreshing) {
+	if (event.phase == NSEventPhaseEnded) {
+		if (self._overRefreshView && ! self.isRefreshing) {
 			[self startLoading];
 		}
 	}
+	
 	[super scrollWheel:event];
 }
-- (void)viewBoundsChanged:(NSNotification*)note {
-	if (isRefreshing)
+
+- (void)viewBoundsChanged:(NSNotification *)note {
+	if (self.isRefreshing)
 		return;
+	
 	BOOL start = [self overRefreshView];
 	if (start) {
+		
 		// point arrow up
-		[refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
-		overHeaderView = YES;
+		[self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
+		self._overRefreshView = YES;
+		
 	} else {
+		
 		// point arrow down
-		[refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
-		overHeaderView = NO;
+		[self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
+		self._overRefreshView = NO;
+		
 	}
 	
 }
+
 - (BOOL)overRefreshView {
-	NSClipView *clipView = self.contentView;
-	NSRect bounds = clipView.bounds;
+	NSClipView *clipView  = self.contentView;
+	NSRect bounds         = clipView.bounds;
 	
-	CGFloat scrollValue = bounds.origin.y;
+	CGFloat scrollValue   = bounds.origin.y;
 	CGFloat minimumScroll = self.minimumScroll;
 	
-	return (scrollValue<=minimumScroll);
+	return (scrollValue <= minimumScroll);
 }
+
+- (CGFloat)minimumScroll {
+	return 0 - self.refreshHeader.frame.size.height;
+}
+
+#pragma mark - Refresh
+
 - (void)startLoading {
 	[self willChangeValueForKey:@"isRefreshing"];
-	isRefreshing = YES;
+	_isRefreshing        = YES;
 	[self didChangeValueForKey:@"isRefreshing"];
 	
-	refreshArrow.hidden = YES;
-	[refreshSpinner startAnimation:self];
+	self.refreshArrow.hidden = YES;
+	[self.refreshSpinner startAnimation:self];
 	
-	if (self.target&&[self.target respondsToSelector:self.selector])
-		[self.target performSelectorOnMainThread:self.selector 
-									  withObject:self
-								   waitUntilDone:YES];
+	if (self.refreshBlock) {
+		self.refreshBlock(self);
+	}
 }
+
 - (void)stopLoading {	
-	refreshArrow.hidden = NO;	
-	[refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
-	[refreshSpinner stopAnimation:self];
+	self.refreshArrow.hidden            = NO;	
+	
+	[self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
+	[self.refreshSpinner stopAnimation:self];
 	
 	// now fake an event of scrolling for a natural look
 	
 	[self willChangeValueForKey:@"isRefreshing"];
-	isRefreshing = NO;
+	_isRefreshing = NO;
 	[self didChangeValueForKey:@"isRefreshing"];
 	
-	CGEventRef cgEvent = CGEventCreateScrollWheelEvent(NULL,
-													   kCGScrollEventUnitLine,
-													   2,
-													   1,
-													   0);
+	CGEventRef cgEvent   = CGEventCreateScrollWheelEvent(NULL,
+														 kCGScrollEventUnitLine,
+														 2,
+														 1,
+														 0);
+	
 	NSEvent *scrollEvent = [NSEvent eventWithCGEvent:cgEvent];
 	[self scrollWheel:scrollEvent];
 	CFRelease(cgEvent);
 }
-- (CGFloat)minimumScroll {
-	return 0-refreshHeader.frame.size.height;
-}
+
 @end

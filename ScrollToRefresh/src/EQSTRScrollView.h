@@ -24,31 +24,16 @@
 
 #import <AppKit/AppKit.h>
 
-@interface EQSTRScrollView : NSScrollView {
-	BOOL isRefreshing;
-	BOOL overHeaderView;
-	
-	NSView *refreshHeader;
-	NSView *refreshArrow;
-	NSProgressIndicator *refreshSpinner;
-	
-	id target;
-	SEL selector;
-}
-@property (assign) id target;
-@property (assign) SEL selector;
-
+@interface EQSTRScrollView : NSScrollView
 @property (readonly) BOOL isRefreshing;
 
 @property (readonly) NSView *refreshHeader;
 @property (readonly) NSProgressIndicator *refreshSpinner;
 @property (readonly) NSView *refreshArrow;
+
+@property (nonatomic, copy) void (^refreshBlock)(EQSTRScrollView *scrollView);
+
 - (void)startLoading;
 - (void)stopLoading;
 
-- (BOOL)overRefreshView;
-- (void)createHeaderView;
-- (void)viewBoundsChanged:(NSNotification*)note;
-
-- (CGFloat)minimumScroll;
 @end

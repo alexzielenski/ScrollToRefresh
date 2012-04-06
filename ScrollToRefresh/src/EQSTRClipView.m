@@ -35,6 +35,7 @@
 	if (self.isRefreshing && scrollValue <= 0) { // if we are refreshing
 		if (over) // and if we are scrolled above the refresh view
 			proposedNewOrigin.y = 0 - self.headerView.frame.size.height; // constrain us to the refresh view
+		
 		return NSMakePoint(constrained.x, proposedNewOrigin.y);
 	}
 	return constrained;
@@ -51,12 +52,12 @@
 	return sup;
 }
 - (BOOL)isRefreshing {
-	return [(EQSTRScrollView*)self.superview isRefreshing];
+	return [(EQSTRScrollView *)self.superview isRefreshing];
 }
 - (NSView*)headerView {
-	return [(EQSTRScrollView*)self.superview refreshHeader];
+	return [(EQSTRScrollView *)self.superview refreshHeader];
 }
 - (CGFloat)minimumScroll {
-	return [(EQSTRScrollView*)self.superview minimumScroll];
+	return [(EQSTRScrollView *)self.superview minimumScroll];
 }
 @end

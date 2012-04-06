@@ -30,16 +30,15 @@
 
 @synthesize window = _window;
 
-- (void)dealloc
-{
+- (void)dealloc {
     [super dealloc];
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Insert code here to initialize your application
 }
-- (IBAction)stopRefreshing:(NSButton*)sender {
+
+- (IBAction)stopRefreshing:(NSButton *)sender {
 	[(EQSTRScrollView*)sender.enclosingScrollView stopLoading];
 }
 @end

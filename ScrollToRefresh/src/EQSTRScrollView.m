@@ -215,7 +215,7 @@
 
 - (void)startLoading {
 	[self willChangeValueForKey:@"isRefreshing"];
-	_isRefreshing        = YES;
+	_isRefreshing            = YES;
 	[self didChangeValueForKey:@"isRefreshing"];
 	
 	self.refreshArrow.hidden = YES;

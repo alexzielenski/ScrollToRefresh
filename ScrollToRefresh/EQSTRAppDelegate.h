@@ -27,5 +27,5 @@
 @interface EQSTRAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-- (IBAction)stopRefreshing:(NSButton*)sender;
+- (IBAction)stopRefreshing:(NSButton *)sender;
 @end

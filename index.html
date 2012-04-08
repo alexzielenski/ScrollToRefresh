@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>ScrollToRefresh by alexzielenski</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>ScrollToRefresh</h1>
+<p>An NSScrollView subclass to allow the popular &quot;pull to refresh&quot; from iPhone to work on Mac OS X Lion</p>
+        <p class="view"><a href="https://github.com/alexzielenski/ScrollToRefresh">View the Project on GitHub <small>alexzielenski/ScrollToRefresh</small></a></p>
+        <ul>
+          <li><a href="https://github.com/alexzielenski/ScrollToRefresh/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/alexzielenski/ScrollToRefresh/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/alexzielenski/ScrollToRefresh">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>The First Scroll To Refresh solution using only AppKit and Public APIs!</p>
+
+<h1>Introduction</h1>
+
+<p>ScrollToRefresh is a subclass of NSScrollView that adds a "pull-to-refresh" feel to the "elastic" area of NSScrollview. </p>
+
+<p><img src="https://github.com/alexzielenski/ScrollToRefresh/raw/master/screenshot.png" alt="ScrollToRefresh in action" title="Scroll To Refresh"></p>
+
+<h1>Usage</h1>
+
+<ol>
+<li>Set the class of your scroll view to <code>EQSTRScrollView</code>
+</li>
+<li>Set the <code>-refreshBlock</code> of your scroll view to a block to run some code when the refresh starts.</li>
+<li>When you know that your processing is finished, call <code>-stopLoading</code> on the scroll view to remove the refresh view.</li>
+<li>PROFIT</li>
+</ol><h1>How it works</h1>
+
+<p>The secret is actually knowing how scroll views work. When you scroll, the clip view offsets the origin of its <code>-bounds</code> so any subview within the clipview will scroll. It also employs a couple of other methods to check the boundaries of the document view which I override to include the refresh view to get a more natural feel.</p>
+
+<h1>License</h1>
+
+<p>ScrollToRefresh is licensed under the MIT license meaning you can do whatever you want with it and I am not responsible for any trouble you get and you must include the license in whatever you use it in.</p>
+
+<pre><code>//  ScrollToRefresh
+//
+// Copyright (C) 2011 by Alex Zielenski.
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+</code></pre>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/alexzielenski">alexzielenski</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
